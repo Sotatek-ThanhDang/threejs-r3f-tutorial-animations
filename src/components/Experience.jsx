@@ -1,7 +1,28 @@
 import { OrbitControls } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import React from "react";
 import Woman from "./Woman";
 
 const Experience = () => {
+  const gl = useThree((state) => state.gl);
+  React.useEffect(() => {
+    setTimeout(() => {
+      const a = () => {
+        console.warn("=====", gl);
+        const link = document.createElement("a");
+        link.setAttribute("download", "canvas.png");
+        link.setAttribute(
+          "href",
+          gl.domElement
+            .toDataURL("image/png")
+            .replace("image/png", "image/octet-stream")
+        );
+        link.click();
+      };
+      a();
+    }, 30000);
+  }, []);
+
   return (
     <>
       <OrbitControls />
